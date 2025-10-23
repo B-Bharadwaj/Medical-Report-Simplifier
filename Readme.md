@@ -1,8 +1,6 @@
 # 🧠Medical Report Simplifier 💊
 
 
-<p align="center"> <img src="C:\Users\bhara\OneDrive\Documents\Medical_Report_Simplifier\UI_preview.png" alt="Medical Report Simplifier Demo" width="750"/> </p>
-
 **Medical Report Simplifier** is a Streamlit-based AI application that converts complex medical jargon into **easy-to-understand, patient-friendly explanations**.  
 The app uses **Mistral-7B-Instruct**, fine-tuned using **LoRA adapters** on a custom dataset of medical reports and their simplified counterparts.
 
@@ -53,10 +51,12 @@ Medical_Report_Simplifier/
 ---
 
 ##⚙️ Tech Stack
+```
 -🧠 Model: Mistral-7B-Instruct-v0.2
 -🧩 Fine-tuning: PEFT + LoRA
 -⚙️ Quantization: BitsAndBytes (4-bit)
 -🖥️ Frontend: Streamlit
 -🔥 Backend: PyTorch
+```
 
 ---
