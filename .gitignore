@@ -1,0 +1,21 @@
+# Virtual environment
+venv/
+.env/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+
+# Model weights
+models/mistral_merged/
+models/mistral_lora/
+*.safetensors
+*.bin
+
+# Cache and logs
+*.log
+.cache/
+outputs/
+wandb/
