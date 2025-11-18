@@ -7,7 +7,7 @@ This project extracts text from uploaded PDF medical reports and uses a state-of
 ---
 
 ## 🚀 Features
-
+```bash
 -PDF Upload Support (via Streamlit)
 -Automatic Text Extraction using pdfplumber
 -Medical Report Simplification powered by Gemini 2.5 Flash
@@ -16,11 +16,11 @@ This project extracts text from uploaded PDF medical reports and uses a state-of
 -Fast, reliable, and demo-ready
 -Lightweight Flask backend + Streamlit frontend   
 
-
 ---
+```
 
 ## ⚙️ Tech Stack
-```
+
 | Component   | Technology                      |
 | ----------- | ------------------------------- |
 | Frontend    | Streamlit                       |
@@ -30,7 +30,7 @@ This project extracts text from uploaded PDF medical reports and uses a state-of
 | Language    | Python                          |
 | Deployment  | Local (ideal for presentations) |
 
-```
+
 ## 📦 Project Structure
 ```
 Medical_Report_Simplifier/
