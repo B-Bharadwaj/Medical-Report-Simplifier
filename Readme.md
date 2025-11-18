@@ -1,62 +1,59 @@
-# 🧠Medical Report Simplifier 💊
+# 🧠Medical Report Simplifier
 
+**AI-powered tool to convert complex medical reports into simple, patient-friendly language**
 
-**Medical Report Simplifier** is a Streamlit-based AI application that converts complex medical jargon into **easy-to-understand, patient-friendly explanations**.  
-The app uses **Mistral-7B-Instruct**, fine-tuned using **LoRA adapters** on a custom dataset of medical reports and their simplified counterparts.
+This project extracts text from uploaded PDF medical reports and uses a state-of-the-art large language model (Gemini 2.5 Flash) to generate a simplified, easy-to-understand explanation. It is designed for students, patients, and clinicians who want a clear, jargon-free understanding of medical information.
 
 ---
 
 ## 🚀 Features
-- 🏥 Converts dense clinical reports into plain English  
-- 🤖 Powered by **Mistral-7B-Instruct (LoRA fine-tuned)**  
-- ⚡ Runs on GPU with **4-bit quantization** for faster inference  
-- 🧾 Interactive **Streamlit UI**  
-- 🧠 Automatically detects missing padding tokens and handles EOS properly   
+```
+-PDF Upload Support (via Streamlit)
+-Automatic Text Extraction using pdfplumber
+-Medical Report Simplification powered by Gemini 2.5 Flash
+-Explains complex medical terms in clear language
+-Produces structured, easy-to-read output
+-Fast, reliable, and demo-ready
+-Lightweight Flask backend + Streamlit frontend   
+```
 
 ---
 
-##📊 Dataset
+## ⚙️ Tech Stack
+```
+| Component   | Technology                      |
+| ----------- | ------------------------------- |
+| Frontend    | Streamlit                       |
+| Backend     | Flask                           |
+| AI Model    | Google Gemini 2.5 Flash         |
+| PDF Parsing | pdfplumber                      |
+| Language    | Python                          |
+| Deployment  | Local (ideal for presentations) |
 
--The fine-tuning dataset was built using 111 paired samples of:
--Original clinical statements
--Simplified patient explanations
-stored in:
-data/processed/paired_dataset.csv
-
----
-
-## 🧩 Project Structure
+```
+## 📦 Project Structure
 ```
 Medical_Report_Simplifier/
 │
-├── data/
-│ ├── raw/ # Original dataset
-│ ├── processed/ # Paired simplified dataset
+├── backend/
+│   ├── app.py          # Flask API for PDF → Text → LLM pipeline
 │
-├── models/
-│ ├── mistral_lora/ # Fine-tuned adapter weights
-│ └── mistral_merged/ # Fully merged model (optional)
+├── frontend/
+│   ├── app.py          # Streamlit UI for PDF upload and display
 │
-├── notebooks/
-│ ├── fine_tune_mistral.py # Fine-tuning script
-│ ├── merge_adapter_fixed.py # Adapter merging script
-│ └── test_mistral_model.py # Local inference test
+├── venv/               # Virtual environment
 │
-├── app/
-│ └── streamlit_app.py # Streamlit interface
-│
-├── requirements.txt
-└── README.md
+└── README.md           # Project documentation
 ```
 ---
 
-##⚙️ Tech Stack
-```
--🧠 Model: Mistral-7B-Instruct-v0.2
--🧩 Fine-tuning: PEFT + LoRA
--⚙️ Quantization: BitsAndBytes (4-bit)
--🖥️ Frontend: Streamlit
--🔥 Backend: PyTorch
-```
+## 🛠️ How It Works
+
+-User uploads a PDF medical report via Streamlit
+-Streamlit sends the file to the Flask backend
+-Backend extracts text using pdfplumber
+-Extracted text is sent to Gemini 2.5 Flash
+-The model returns a simplified, patient-friendly explanation
+-Streamlit displays the explanation in clean format
 
 ---
