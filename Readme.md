@@ -16,7 +16,6 @@ This project extracts text from uploaded PDF medical reports and uses a state-of
 -Fast, reliable, and demo-ready
 -Lightweight Flask backend + Streamlit frontend   
 
----
 ```
 
 ## ⚙️ Tech Stack
