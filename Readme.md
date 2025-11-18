@@ -2,7 +2,7 @@
 
 **AI-powered tool to convert complex medical reports into simple, patient-friendly language**
 
-This project extracts text from uploaded PDF medical reports and uses a state-of-the-art large language model (Gemini 2.5 Flash) to generate a simplified, easy-to-understand explanation. It is designed for students, patients, and clinicians who want a clear, jargon-free understanding of medical information.
+This application helps users understand medical reports by transforming complex PDF content into simple, easy-to-read explanations using an AI-powered simplification engine.
 
 ---
 
