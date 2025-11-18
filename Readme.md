@@ -47,12 +47,13 @@ Medical_Report_Simplifier/
 ---
 
 ## 🛠️ How It Works
-
+```bash
 -User uploads a PDF medical report via Streamlit
 -Streamlit sends the file to the Flask backend
 -Backend extracts text using pdfplumber
 -Extracted text is sent to Gemini 2.5 Flash
 -The model returns a simplified, patient-friendly explanation
 -Streamlit displays the explanation in clean format
+```
 
 --- 
