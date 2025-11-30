@@ -26,3 +26,5 @@ uploaded.pdf
 *.env
 .env
 apikey.txt
+# Do not commit Python venv
+venv/
