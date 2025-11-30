@@ -1,21 +1,28 @@
-# Virtual environment
+# Python venv
 venv/
-.env/
+ENV/
+env/
 
-# OS and IDE files
-.DS_Store
-Thumbs.db
+# Python cache
 __pycache__/
 *.pyc
 
-# Model weights
-models/mistral_merged/
-models/mistral_lora/
-*.safetensors
-*.bin
+# Streamlit cache
+.streamlit/
 
-# Cache and logs
-*.log
-.cache/
-outputs/
-wandb/
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PDF/temp files
+uploaded.pdf
+*.pdf
+
+# Do NOT push API keys
+*.env
+.env
+apikey.txt
