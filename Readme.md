@@ -1,59 +1,138 @@
-# 🧠Medical Report Simplifier
+# 🩺 Medical Report Simplifier  
+### Convert complex medical reports into clear, patient-friendly explanations.
 
-**AI-powered tool to convert complex medical reports into simple, patient-friendly language**
+This project takes any uploaded **medical report (PDF)** and automatically:
 
-This application helps users understand medical reports by transforming complex PDF content into simple, easy-to-read explanations using an AI-powered simplification engine.
+- Extracts medical text from the PDF  
+- Simplifies the content using **Gemini 2.5 Flash**
+- Allows follow-up questions through an integrated **medical chatbot**
+- Generates a downloadable simplified summary  
+- Organizes information in a clean Streamlit UI  
+
+Ideal for patients, students, and clinicians who want instant, easy-to-understand explanations.
 
 ---
 
 ## 🚀 Features
-```bash
--PDF Upload Support (via Streamlit)
--Automatic Text Extraction using pdfplumber
--Medical Report Simplification powered by Gemini 2.5 Flash
--Explains complex medical terms in clear language
--Produces structured, easy-to-read output
--Fast, reliable, and demo-ready
--Lightweight Flask backend + Streamlit frontend   
 
-```
+### 1. PDF Text Extraction  
+Uses `pdfplumber` to accurately extract text from medical PDFs.
 
-## ⚙️ Tech Stack
+### 2. Medical Text Simplification  
+Powered by **Google Gemini 2.5 Flash**, providing:
+- Patient-friendly explanations  
+- Student-level summaries  
+- Clinical bullet points  
 
-| Component   | Technology                      |
-| ----------- | ------------------------------- |
-| Frontend    | Streamlit                       |
-| Backend     | Flask                           |
-| AI Model    | Google Gemini 2.5 Flash         |
-| PDF Parsing | pdfplumber                      |
-| Language    | Python                          |
-| Deployment  | Local (ideal for presentations) |
+### 3. Adjustable Output Controls  
+Through the sidebar, users can choose:
+- **Conciseness**: Short / Medium / Detailed  
+- **Output Format**: Summary Only / Key Findings / Full Explanation  
 
+### 4. Integrated Medical Chatbot 🤖  
+After generating the report, the user can ask follow-up questions like:
+- “What does lymphovascular invasion mean?”  
+- “Is this type of cancer serious?”  
+- “What are the next treatment steps?”  
 
-## 📦 Project Structure
-```
-Medical_Report_Simplifier/
-│
-├── backend/
-│   ├── app.py          # Flask API for PDF → Text → LLM pipeline
-│
-├── frontend/
-│   ├── app.py          # Streamlit UI for PDF upload and display
-│
-├── venv/               # Virtual environment
-│
-└── README.md           # Project documentation
-```
+The chatbot uses:
+- The simplified report  
+- Chat history  
+to generate context-aware answers.
+
+### 5. Downloadable Summary  
+Users can download:
+- **TXT file**
+- (Optional) PDF output (backend-ready)
+
 ---
 
-## 🛠️ How It Works
-```bash
--User uploads a PDF medical report via Streamlit
--Streamlit sends the file to the Flask backend
--Backend extracts text using pdfplumber
--Extracted text is sent to Gemini 2.5 Flash
--The model returns a simplified, patient-friendly explanation
--Streamlit displays the explanation in clean format
+## 🧠 System Architecture
+```
+📁 Medical-Report-Simplifier
+│
+├── backend/
+│ ├── app.py # Flask backend
+│ ├── utils.py # PDF extraction & helpers
+│ ├── requirements.txt
+│ └── .env # API key (ignored by Git)
+│
+├── frontend/
+│ └── app.py # Streamlit UI
+│
+├── .gitignore
+├── README.md
+└── files/
+└── sample_reports/
 ```
 
---- 
+
+---
+
+## 🛠️ Tech Stack
+
+### **Frontend**
+- Streamlit
+
+### **Backend**
+- Flask  
+- Google Gemini 2.5 Flash (API)
+- pdfplumber
+- python-dotenv
+- fpdf (optional PDF generation)
+
+### **Tools**
+- Git & GitHub  
+- Virtual environments  
+- `.env` secrets handling
+
+---
+
+## 📡 API Endpoints
+
+### **POST /simplify**
+Simplifies uploaded medical PDF.
+
+**Request:**
+- `file` → PDF    
+- `conciseness` → Short / Medium / Detailed  
+- `format` → Summary Only / Key Findings / Full Explanation  
+
+**Response:**
+```json
+{
+  "simplified_text": "Final simplified output…"
+}
+```
+---
+# 🧪 How to Run Locally
+```bash
+1. Clone the repository
+git clone https://github.com/B-Bharadwaj/Medical-Report-Simplifier.git
+cd Medical-Report-Simplifier
+
+2. Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\activate
+
+3. Install dependencies
+pip install -r backend/requirements.txt
+
+4. Set up your .env
+
+Create the .env file:
+
+backend/.env
+
+Add your Google API key inside it:
+
+GOOGLE_API_KEY=your_api_key_here
+
+5. Run backend
+cd backend
+python app.py
+
+6.Run frontend
+cd ../frontend
+streamlit run app.py
+```
