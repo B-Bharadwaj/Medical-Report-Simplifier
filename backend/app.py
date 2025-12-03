@@ -4,8 +4,18 @@ import google.generativeai as genai
 import os
 import traceback
 
+# 🔥 Add this block
+import sys
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(ROOT_DIR)
+
+from backend.scr_evaluation import evaluate_all
+
+
 app = Flask(__name__)
 
+from dotenv import load_dotenv
+load_dotenv()
 # Load API key
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
@@ -99,10 +109,36 @@ Now produce the explanation.
 
 
         # 4. Call Gemini
-        response = model.generate_content(prompt)
-        simplified = response.text
+        # 4. Call Gemini
+        gemini_response = model.generate_content(prompt)
+        simplified = gemini_response.text
 
-        return jsonify({"simplified_text": simplified})
+        # 5. SAFE REWRITE
+        from backend.scr_evaluation import enforce_safe_rewrite
+        simplified = enforce_safe_rewrite(extracted_text, simplified)
+
+        # 6. EVALUATION
+        from backend.scr_evaluation import evaluate_all
+        metrics = evaluate_all(extracted_text, simplified)
+
+# --- NEW: safe rewrite ---
+        from backend.scr_evaluation import enforce_safe_rewrite
+        simplified = enforce_safe_rewrite(extracted_text, simplified)
+
+        # Re-evaluate after correction
+        metrics = evaluate_all(extracted_text, simplified)
+
+
+        # 5. Run Safety + Meaning Evaluation
+        metrics = evaluate_all(extracted_text, simplified)
+
+        # 6. Combine everything in final output
+        return jsonify({
+            "original_text": extracted_text,
+            "simplified_text": simplified,
+            **metrics
+        })
+
 
     except Exception as e:
         return jsonify({
@@ -155,7 +191,10 @@ Now respond to the user's question.
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+
 # ------------------- RUN SERVER -------------------
 if __name__ == "__main__":
     print("🚀 Backend running at: http://127.0.0.1:5000")
     app.run(debug=True)
+

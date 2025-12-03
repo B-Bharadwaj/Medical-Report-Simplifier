@@ -78,7 +78,9 @@ if uploaded_file is not None:
                 # Store simplified text in session state
                 st.session_state["simplified_report"] = data["simplified_text"]
 
-                # Display simplified text
+                # ---------------------------------------------
+                # 📝 Simplified Output
+                # ---------------------------------------------
                 st.subheader("📝 Simplified Explanation")
                 st.write(data["simplified_text"])
 
@@ -89,6 +91,33 @@ if uploaded_file is not None:
                     file_name="simplified_report.txt"
                 )
 
+                # ---------------------------------------------
+                # ⭐ NEW BLOCK — Evaluation Metrics
+                # ---------------------------------------------
+                st.subheader("📊 Safety & Quality Evaluation")
+
+                # SCR Score
+                st.markdown(
+                    f"**Meaning Preservation (SCR):** `{data['scr_score']}` "
+                    f"— **{data['scr_label'].upper()}**"
+                )
+
+                # Negation Check
+                if data["negation_safe"]:
+                    st.success("🟢 Negation Check: No negation meaning lost.")
+                else:
+                    st.error("🔴 WARNING: Negation may be incorrectly changed!")
+
+                # Critical Medical Terms
+                if len(data["critical_terms_missing"]) == 0:
+                    st.success("🟢 No critical medical terms were lost.")
+                else:
+                    missing = ", ".join(data["critical_terms_missing"])
+                    st.error(f"🔴 Missing important medical terms: **{missing}**")
+
+                # Readability
+                st.info(f"📘 Readability Grade: **{data['readability_grade']:.2f}**")
+
             except Exception as e:
                 st.error("Frontend Error: " + str(e))
 
@@ -97,29 +126,24 @@ if "simplified_report" in st.session_state:
 
     st.markdown("## 🤖 Chat with Your Medical Assistant")
 
-    # Initialize chat session memory
     if "chat_history" not in st.session_state:
         st.session_state["chat_history"] = []
 
-    # Display past conversation
+    # Display chat history
     for msg in st.session_state["chat_history"]:
         if msg["role"] == "user":
             st.markdown(f"**🧑 You:** {msg['content']}")
         else:
             st.markdown(f"**🤖 AI:** {msg['content']}")
 
-    # Input for new question
     user_input = st.text_input("Ask a follow-up question:")
 
     if st.button("Send"):
         if user_input.strip():
-
-            # Log user question
             st.session_state["chat_history"].append(
                 {"role": "user", "content": user_input}
             )
 
-            # Prepare backend payload
             payload = {
                 "question": user_input,
                 "simplified_report": st.session_state["simplified_report"],
@@ -135,7 +159,6 @@ if "simplified_report" in st.session_state:
 
             answer = chat_response.json().get("answer", "Error")
 
-            # Add AI answer
             st.session_state["chat_history"].append(
                 {"role": "ai", "content": answer}
             )
